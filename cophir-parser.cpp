@@ -233,7 +233,6 @@ int main() {
             pos = line.find("<BinCounts>");
 
             if (pos != string::npos) {
-                // Retorna a substring com os números, removendo <BinCounts> e </BinCounts>.
                 bin_counts_value = line.substr(11, line.length() - 23);
 
                 break;
