@@ -1,7 +1,6 @@
 #include <iostream>
 #include <string>
 #include <fstream>
-#include <sstream>
 #include "strtk.hpp"
 
 #define XML_FILES 1000000
