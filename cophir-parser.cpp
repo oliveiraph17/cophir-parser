@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <list>
 #include "strtk.hpp"
 
 #define XML_FILES 10000000
@@ -34,16 +35,13 @@ int main() {
 
     // For each line of files.txt.
     for (int i = 1; i <= XML_FILES; ++i) {
-        // Writes a line to input.txt.
-
-        // ID.
-        input << i;
-        input << " ";
-
+        // Reads current XML file name.
         getline(xml_files, line);
 
         // Opens current XML file.
         ifstream xml_file(line.c_str());
+
+        // Boolean variables.
 
         bool found_coeff = false;
 
@@ -62,6 +60,46 @@ int main() {
         bool found_standard_deviation = false;
         bool found_energy = false;
         bool found_energy_deviation = false;
+
+        // String variables.
+
+        string coeff_value;
+
+        string ydc_coeff_value;
+        string cbdc_coeff_value;
+        string crdc_coeff_value;
+        string yac_coeff5_value;
+        string cbac_coeff2_value;
+        string crac_coeff2_value;
+
+        string values_value;
+
+        string bin_counts_value;
+
+        string average_value;
+        string standard_deviation_value;
+        string energy_value;
+        string energy_deviation_value;
+
+        // Lists and variables for storing each integer.
+
+        list<int> coeff;
+
+        int ydc_coeff;
+        int cbdc_coeff;
+        int crdc_coeff;
+        list<int> yac_coeff5;
+        list<int> cbac_coeff2;
+        list<int> crac_coeff2;
+
+        list<int> values;
+
+        list<int> bin_counts;
+
+        int average;
+        int standard_deviation;
+        list<int> energy;
+        list<int> energy_deviation;
 
         while (getline(xml_file, line)) {
             ///////////////////////////////////////////////////////////////////////////////////////
@@ -82,8 +120,7 @@ int main() {
 
                     while (itr != tokenizer.end()) {
                         if (itr.as_string() != "") {
-                            input << itr;
-                            input << " ";
+                            coeff.push_back(atoi(itr.as_string().c_str()));
                         }
 
                         ++itr;
@@ -103,8 +140,7 @@ int main() {
                 pos = line.find("<YDCCoeff>");
 
                 if (pos != string::npos) {
-                    input << line.substr(10, line.length() - 21);
-                    input << " ";
+                    ydc_coeff = atoi(line.substr(10, line.length() - 21).c_str());
 
                     found_ydc_coeff = true;
 
@@ -116,8 +152,7 @@ int main() {
                 pos = line.find("<CbDCCoeff>");
 
                 if (pos != string::npos) {
-                    input << line.substr(11, line.length() - 23);
-                    input << " ";
+                    cbdc_coeff = atoi(line.substr(11, line.length() - 23).c_str());
 
                     found_cbdc_coeff = true;
 
@@ -129,8 +164,7 @@ int main() {
                 pos = line.find("<CrDCCoeff>");
 
                 if (pos != string::npos) {
-                    input << line.substr(11, line.length() - 23);
-                    input << " ";
+                    crdc_coeff = atoi(line.substr(11, line.length() - 23).c_str());
 
                     found_crdc_coeff = true;
 
@@ -152,8 +186,7 @@ int main() {
 
                     while (itr != tokenizer.end()) {
                         if (itr.as_string() != "") {
-                            input << itr;
-                            input << " ";
+                            yac_coeff5.push_back(atoi(itr.as_string().c_str()));
                         }
 
                         ++itr;
@@ -179,8 +212,7 @@ int main() {
 
                     while (itr != tokenizer.end()) {
                         if (itr.as_string() != "") {
-                            input << itr;
-                            input << " ";
+                            cbac_coeff2.push_back(atoi(itr.as_string().c_str()));
                         }
 
                         ++itr;
@@ -206,8 +238,7 @@ int main() {
 
                     while (itr != tokenizer.end()) {
                         if (itr.as_string() != "") {
-                            input << itr;
-                            input << " ";
+                            crac_coeff2.push_back(atoi(itr.as_string().c_str()));
                         }
 
                         ++itr;
@@ -237,8 +268,7 @@ int main() {
 
                     while (itr != tokenizer.end()) {
                         if (itr.as_string() != "") {
-                            input << itr;
-                            input << " ";
+                            values.push_back(atoi(itr.as_string().c_str()));
                         }
 
                         ++itr;
@@ -268,8 +298,7 @@ int main() {
 
                     while (itr != tokenizer.end()) {
                         if (itr.as_string() != "") {
-                            input << itr;
-                            input << " ";
+                            bin_counts.push_back(atoi(itr.as_string().c_str()));
                         }
 
                         ++itr;
@@ -289,8 +318,7 @@ int main() {
                 pos = line.find("<Average>");
 
                 if (pos != string::npos) {
-                    input << line.substr(9, line.length() - 19);
-                    input << " ";
+                    average = atoi(line.substr(9, line.length() - 19).c_str());
 
                     found_average = true;
 
@@ -302,8 +330,7 @@ int main() {
                 pos = line.find("<StandardDeviation>");
 
                 if (pos != string::npos) {
-                    input << line.substr(19, line.length() - 39);
-                    input << " ";
+                    standard_deviation = atoi(line.substr(19, line.length() - 39).c_str());
 
                     found_standard_deviation = true;
 
@@ -325,8 +352,7 @@ int main() {
 
                     while (itr != tokenizer.end()) {
                         if (itr.as_string() != "") {
-                            input << itr;
-                            input << " ";
+                            energy.push_back(atoi(itr.as_string().c_str()));
                         }
 
                         ++itr;
@@ -352,8 +378,7 @@ int main() {
 
                     while (itr != tokenizer.end()) {
                         if (itr.as_string() != "") {
-                            input << itr;
-                            input << " ";
+                            energy_deviation.push_back(atoi(itr.as_string().c_str()));
                         }
 
                         ++itr;
@@ -365,6 +390,82 @@ int main() {
                 }
             }
         }
+
+        list<int>::iterator itr;
+
+        // The following instructions write a line to input.txt.
+
+        // ID.
+
+        input << i;
+        input << " ";
+
+        // Scalable Color - 64d.
+
+        for (itr = coeff.begin(); itr != coeff.end(); ++itr) {
+            input << *itr;
+            input << " ";
+        }
+
+        // Color Layout - 12d.
+
+        input << ydc_coeff;
+        input << " ";
+
+        input << cbdc_coeff;
+        input << " ";
+
+        input << crdc_coeff;
+        input << " ";
+
+        for (itr = yac_coeff5.begin(); itr != yac_coeff5.end(); ++itr) {
+            input << *itr;
+            input << " ";
+        }
+
+        for (itr = cbac_coeff2.begin(); itr != cbac_coeff2.end(); ++itr) {
+            input << *itr;
+            input << " ";
+        }
+
+        for (itr = crac_coeff2.begin(); itr != crac_coeff2.end(); ++itr) {
+            input << *itr;
+            input << " ";
+        }
+
+        // Color Structure - 64d.
+
+        for (itr = values.begin(); itr != values.end(); ++itr) {
+            input << *itr;
+            input << " ";
+        }
+
+        // Edge Histogram - 80d.
+
+        for (itr = bin_counts.begin(); itr != bin_counts.end(); ++itr) {
+            input << *itr;
+            input << " ";
+        }
+
+        // Homogeneous Texture - 62d.
+
+        input << average;
+        input << " ";
+
+        input << standard_deviation;
+        input << " ";
+
+        for (itr = energy.begin(); itr != energy.end(); ++itr) {
+            input << *itr;
+            input << " ";
+        }
+
+        for (itr = energy_deviation.begin(); itr != energy_deviation.end(); ++itr) {
+            input << *itr;
+            input << " ";
+        }
+
+        // End of line.
 
         input << endl;
     }
